@@ -1,7 +1,7 @@
-import musicazoo.lib.cmdlog
-import musicazoo.lib.database as database
-import musicazoo.lib.service as service
-import musicazoo.settings as settings
+import shmooze.lib.cmdlog
+import shmooze.lib.database as database
+import shmooze.lib.service as service
+import shmooze.settings as settings
 import uuid
 
 # A queue manages the life and death of modules, through tornado's IOLoop.
@@ -42,8 +42,6 @@ class Queue(service.JSONCommandProcessor, service.Service):
         # (used in JSONCommandProcessor)
         if logfilename:
             self.logger = database.Database(log_table="queue_log")
-            #self.logger = musicazoo.lib.cmdlog.FileLogger(logfilename)
-        #self.log_prefix={"node":"client-queue","instance":self.instance}
         self.log_namespace = "client-queue"
 
         # JSONCommandService handles all of the low-level TCP connection stuff.

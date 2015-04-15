@@ -3,7 +3,7 @@ import socket
 import sys
 import traceback
 
-import musicazoo.lib.packet as packet
+import shmooze.lib.packet as packet
 
 # Modules can be written in any language, but if you choose to write them in python.
 # you may find the contents of this file helpful.

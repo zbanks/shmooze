@@ -1,5 +1,5 @@
-import musicazoo.lib.service as service
-import musicazoo.lib.packet as packet
+import shmooze.lib.service as service
+import shmooze.lib.packet as packet
 import socket
 import tornado.iostream
 import subprocess
