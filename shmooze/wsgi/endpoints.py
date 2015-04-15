@@ -8,5 +8,5 @@ static_endpoints = {
 
 wsgi_endpoints = {}
 
-for service, portnum in settings.ports.items:
+for service, portnum in settings.ports.items():
     wsgi_endpoints["/{}".format(service)] = util.wsgi_control("localhost", portnum)
