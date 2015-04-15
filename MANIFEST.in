@@ -1,0 +1,6 @@
+recursive-include static *.html *.js *.json
+include bin/*
+include run_shmooze.sh
+include requirements.txt
+include supervisord.conf
+include settings.json

@@ -10,7 +10,7 @@ from setuptools import setup
 with open("requirements.txt") as f:
     required = f.read().splitlines()
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 setup(
     name='shmooze',
