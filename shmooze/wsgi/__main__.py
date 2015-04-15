@@ -1,5 +1,5 @@
-import musicazoo.wsgi
-import musicazoo.settings
+import shmooze.wsgi
+import shmooze.settings
 import werkzeug.serving
 
-werkzeug.serving.run_simple('',musicazoo.settings.ports["wsgi"],musicazoo.wsgi.application,extra_files='settings.py')
+werkzeug.serving.run_simple('',shmooze.settings.ports["wsgi"],shmooze.wsgi.application,use_reloader=False, use_debugger=False)
