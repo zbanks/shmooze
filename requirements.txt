@@ -1,0 +1,4 @@
+tornado>=4.0.2
+toro>=0.7
+supervisor>=3.0.0
+Werkzeug>=0.9.6
