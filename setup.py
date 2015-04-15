@@ -10,7 +10,7 @@ from setuptools import setup
 with open("requirements.txt") as f:
     required = f.read().splitlines()
 
-VERSION = "0.1.0"
+VERSION = "1.0.1"
 
 setup(
     name='shmooze',
@@ -22,8 +22,6 @@ setup(
     packages=[
         'shmooze', 
         'shmooze.wsgi', 
-        'shmooze.queue', 
-        'shmooze.pool', 
         'shmooze.modules', 
         'shmooze.lib', 
     ],
@@ -39,6 +37,7 @@ setup(
     package_data={
         'musicazoo': [
             "../supervisord.conf", 
+            "../requirements.txt", 
             "../settings.json",
             '../static/settings.json', 
             '../static/*.js', 

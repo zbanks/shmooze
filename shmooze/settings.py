@@ -2,7 +2,7 @@ import json
 import os
 import pkg_resources
 
-json_path = os.environ.get("SMOOZE_SETTINGS")
+json_path = os.environ.get("SHMOOZE_SETTINGS")
 if json_path is None:
     json_path = pkg_resources.resource_filename("shmooze", '../settings.json')
 
