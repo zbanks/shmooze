@@ -20,62 +20,6 @@
 
     exports._ = _;
 
-    // Handlebars extras
-
-    Handlebars.registerHelper('minutes', function(seconds){
-        var hours = Math.floor(seconds / 3600);
-        seconds %= 3600;
-        var minutes = Math.floor(seconds / 60);
-        seconds %= 60;
-        seconds = Math.floor(seconds);
-        if(hours){
-            return hours + ":" + _.lpad(minutes, 2, '0') + ":" + _.lpad(seconds, 2, '0');
-        }else{
-            return minutes + ":" + _.lpad(seconds, 2, '0');
-        }
-    });
-
-    Handlebars.registerHelper('add', function(x, options){
-        var v = x + parseInt(options.hash.v);
-        if(!v || v < 0){
-            return 0;
-        }
-        return v;
-    });
-
-    Handlebars.registerHelper('percent', function(x, options){
-        var of = parseInt(options.hash.of);
-        x = parseInt(x);
-        if(of && x){
-            return Math.floor(x / of * 100);
-        }else{
-            return 0;
-        }
-    });
-
-    Handlebars.registerHelper('if_eq', function(x, options){
-        if(options.hash.eq){
-            if(x == options.hash.eq){
-                return options.fn(this);
-            }
-            return options.inverse(this);
-        }else{
-            if(x == options.hash.neq){
-                return options.inverse(this);
-            }
-            return options.fn(this);
-        }
-    });
-
-    Handlebars.registerHelper('pressed', function(x, options){
-        var list = options.hash.list;
-        if(_.contains(list, x)){
-            return "pressed";
-        }else{
-            return "";
-        }
-    });
-
     // Endpoint query wrappers
 
     var Endpoint = exports.Endpoint = function(url){
@@ -103,7 +47,7 @@
         }
         if(this.reqs.length){
             var cbs = _.pluck(this.reqs, "cb");
-            var errs = _.pluck(this.reqs, "cb");
+            var errs = _.pluck(this.reqs, "errs");
             var datas = _.pluck(this.reqs, "data");
             $.ajax(this.url, {
                 data: JSON.stringify(datas),
@@ -147,18 +91,14 @@
         this.reqs = [];
     }
 
-    exports.queue_endpoint = new Endpoint(BASE_URL + "/queue");
-    exports.nlp_endpoint = new Endpoint(BASE_URL + "/vol");
-    exports.volume_endpoint = new Endpoint(BASE_URL + "/vol");
-    exports.top_endpoint = new Endpoint(BASE_URL + "/top");
-    exports.lux_endpoint = new Endpoint(BASE_URL + "/lux");
+    exports.endpoints = {};
 
-    exports.regainConnection = queue_endpoint.onAlive = function(){
+    exports.regainConnection = function(){
         $(".disconnect-hide").show();
         $(".disconnect-show").hide();
     }
 
-    exports.lostConnection = queue_endpoint.onDead = function (){
+    exports.lostConnection = function(){
         console.log("Lost connection");
         $(".disconnect-show").show();
         $(".disconnect-hide").hide();
@@ -171,5 +111,8 @@
         $("html").animate({"backgroundColor": data.bg_color});
         $("html").animate({"color": data.fg_color});
         $("h1.title").text(data.name);
+        for(var ep in data.ports){
+            exports.endpoints[ep] = new Endpoint(BASE_URL + "/" + ep);
+        }
     });
 })(window);
