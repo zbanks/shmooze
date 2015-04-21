@@ -19,4 +19,7 @@ for key, value in settings.items():
     if key.endswith("_path"):
         settings[key] = os.path.expandvars(value)
 
+def get(*args, **kwargs):
+    return settings.get(*args, **kwargs)
+
 globals().update(settings)
