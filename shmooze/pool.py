@@ -103,7 +103,7 @@ class Pool(service.JSONCommandProcessor, service.Service):
         mod_inst.log_namespace = "module-instance" 
         yield mod_inst.new(args)
         with (yield self.pool_lock.acquire()):
-            self.pool.append((uid,mod_inst))
+            self.pool.add((uid,mod_inst))
             yield self.pool_updated()
         raise service.Return({'uid':uid})
 
@@ -114,8 +114,6 @@ class Pool(service.JSONCommandProcessor, service.Service):
     def rm(self,uids):
         with (yield self.pool_lock.acquire()):
             self.pool={(uid,obj) for (uid,obj) in self.pool if uid not in uids}
-            if self.bg is not None and self.bg[0] in uids:
-                self.bg=None
             yield self.pool_updated()
 
     # Take a diff of the pool, and issue appropriate commands to modules (start and rm) if necessary.

@@ -22,4 +22,6 @@ for key, value in settings.items():
 def get(*args, **kwargs):
     return settings.get(*args, **kwargs)
 
+public_settings = {key: settings.get(key) for key in settings.get("public", [])}
+
 globals().update(settings)

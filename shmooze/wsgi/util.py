@@ -31,3 +31,10 @@ def wsgi_control(addr,port,timeout=10):
             return werkzeug.Response(json.dumps(outp),content_type='text/json')
         return werkzeug.Response('Endpoint only accepts JSON.')
     return wsgi
+
+def wsgi_settings_json(settings_dict):
+    settings_json = json.dumps(settings_dict)
+    @werkzeug.Request.application
+    def wsgi(request):
+        return werkzeug.Response(settings_json, content_type='text/json')
+    return wsgi

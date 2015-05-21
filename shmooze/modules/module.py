@@ -33,8 +33,7 @@ class Module(service.JSONCommandProcessor):
         self.parameters={}
         self.remove_function=remove_function
         self.cmd_lock = service.Lock()
-        self.instance = str(uuid.uuid4())
-        self.log_prefix = {"node":"module-queue","instance":self.instance}
+        self.log_prefix = {"node":"module-uninitialized"}
 
     # Helper function for new()
     # Set up listening sockets for subprocess
@@ -71,6 +70,8 @@ class Module(service.JSONCommandProcessor):
     # and for the initialization command to return successfully
     @service.coroutine
     def new(self,args=None):
+        # Set up appropriate log_prefix now that uid is set
+        self.log_prefix = {"node": self.log_namespace, "instance": self.log_uid}
         # Set up two sockets for communication with the sub-process
         listen_futures = self.listen()
         # Launch the subprocess
