@@ -186,7 +186,13 @@ class Module(service.JSONCommandProcessor):
     def terminate_process(self):
         try:
             self.cmd_stream.close()
+        except OSError:
+            pass
+        try:
             self.update_stream.close()
+        except OSError:
+            pass
+        try:
             yield service.with_timeout(self.natural_death_timeout,service.wait(self.proc))
         except (service.TimeoutError, AttributeError):
             print "Module was not dead, sending SIGTERM..."
