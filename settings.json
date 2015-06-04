@@ -4,6 +4,7 @@
     "bg_color":"#675098",
     "name": "Shmooze Application",
     "log_database_path": "$HOME/shmooze.db",
+    "wsgi_prefix": "/",
     "ports" : {
         "queue": 5580,
         "wsgi": 8888
