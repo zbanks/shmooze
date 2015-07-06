@@ -4,7 +4,7 @@ import werkzeug
 
 not_found_app = werkzeug.exceptions.NotFound()
 
-static_path = endpoints.static_endpoints["/"]
+static_path = endpoints.static_endpoint[1]
 
 url_map = werkzeug.routing.Map([
     werkzeug.routing.Rule('/', endpoint='index.html'),
@@ -23,5 +23,5 @@ def application(environ, start_response):
         return response(environ, start_response)
 
 
-application = werkzeug.wsgi.SharedDataMiddleware(application, endpoints.static_endpoints)
+application = werkzeug.wsgi.SharedDataMiddleware(application, dict([endpoints.static_endpoint]))
 application = werkzeug.wsgi.DispatcherMiddleware(application, endpoints.wsgi_endpoints)
