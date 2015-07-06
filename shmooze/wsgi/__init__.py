@@ -4,8 +4,6 @@ import werkzeug
 
 not_found_app = werkzeug.exceptions.NotFound()
 
-static_path = endpoints.static_endpoint[1]
-
 url_map = werkzeug.routing.Map([
     werkzeug.routing.Rule('/', endpoint='index.html'),
 ])

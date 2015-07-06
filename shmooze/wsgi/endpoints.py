@@ -4,7 +4,7 @@ import shmooze.settings as settings
 
 prefix = settings.get("wsgi_prefix", "/")
 
-static_endpoint = (prefix, settings.static_path)
+static_endpoint = (prefix + "static/", settings.static_path)
 
 wsgi_endpoints = {
     prefix + "settings.json": util.wsgi_settings_json(settings.public_settings),
