@@ -22,7 +22,10 @@ class Database(object):
             self.create_log_schema()
 
     def execute(self, _sql_command, **kwargs):
-        return self.conn.execute(_sql_command, kwargs)
+        try:
+            return self.conn.execute(_sql_command, kwargs)
+        except sqlite3.OperationalError as e:
+            print(e) #TODO - probably bubble error better? See issue #1
 
     def execute_select(self, _sql_command, **kwargs):
         return self.execute(_sql_command, **kwargs)
