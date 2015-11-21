@@ -5,6 +5,8 @@
     "name": "Shmooze Application",
     "log_database_path": "$HOME/shmooze.db",
     "wsgi_prefix": "/",
+    "static_prefix": "/static/",
+    "static_path": "./static",
     "ports" : {
         "queue": 5580,
         "wsgi": 8888

@@ -8,6 +8,8 @@ url_map = werkzeug.routing.Map([
     werkzeug.routing.Rule('/', endpoint='index.html'),
 ])
 
+static_path = endpoints.settings.static_path
+
 def application(environ, start_response):
     adapter = url_map.bind_to_environ(environ)
     try: 
